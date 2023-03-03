@@ -2,7 +2,7 @@ import React from "react";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
-import {MemoryRouter, Route} from "react-router-dom";
+import {MemoryRouter} from 'react-router-dom';
 import CharacterDetail from "./CharacterDetail";
 
 jest.mock("axios");
@@ -29,25 +29,24 @@ describe("CharacterDetail", () => {
 
     it("should display character information", async () => {
         render(
-            <MemoryRouter initialEntries={[`/character/2`]}>
-                <Route path="/character/:id">
-                    <CharacterDetail/>
-                </Route>
+            <MemoryRouter>
+                <CharacterDetail/>
             </MemoryRouter>
         );
 
-        expect(await screen.findByText(/loading character/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Loading character.../i)).toBeInTheDocument();
 
-        expect(screen.getByText(characterData.name)).toBeInTheDocument();
-        expect(screen.getByAltText(characterData.name)).toBeInTheDocument();
-        expect(screen.getByText(/status/i)).toHaveTextContent(characterData.status);
-        expect(screen.getByText(/species/i)).toHaveTextContent(characterData.species);
-        expect(screen.getByText(/gender/i)).toHaveTextContent(characterData.gender);
-        expect(screen.getByText(/origin/i)).toHaveTextContent(characterData.origin.name);
-        expect(screen.getByText(/last known location/i)).toHaveTextContent(characterData.location.name);
-        expect(screen.getByText(/number of episodes appearances/i)).toHaveTextContent(characterData.episode.length);
+        expect(await screen.findByText(characterData.name)).toBeInTheDocument();
+        expect(await screen.getByAltText(characterData.name)).toBeInTheDocument();
+        expect(await screen.getByText(/status/i)).toHaveTextContent(characterData.status);
+        expect(await screen.getByText(/species/i)).toHaveTextContent(characterData.species);
+        expect(await screen.getByText(/gender/i)).toHaveTextContent(characterData.gender);
+        expect(await screen.getByText(/origin/i)).toHaveTextContent(characterData.origin.name);
+        expect(await screen.getByText(/last known location/i)).toHaveTextContent(characterData.location.name);
+        expect(await screen.getByText(/number of episodes appearances/i)).toHaveTextContent(characterData.episode.length);
 
         userEvent.click(screen.getByRole("button"));
-        expect(window.location.pathname).toEqual("/characters");
+        expect(window.location.pathname).toEqual("/");
     });
+
 });

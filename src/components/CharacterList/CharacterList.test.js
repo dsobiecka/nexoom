@@ -1,6 +1,7 @@
 import React from "react";
 import {render, screen, fireEvent} from "@testing-library/react";
 import CharacterList from "./CharacterList";
+import {MemoryRouter} from 'react-router-dom';
 
 jest.mock("axios", () => ({
     get: jest.fn(() =>
@@ -36,7 +37,11 @@ jest.mock("react-router-dom", () => ({
 
 describe("CharacterList", () => {
     it("should render characters and pagination", async () => {
-        render(<CharacterList/>);
+        render(
+            <MemoryRouter>
+                <CharacterList/>
+            </MemoryRouter>
+        );
         const titleElement = screen.getByAltText("title");
         const characterElements = screen.getAllByRole("link");
         const previousPageButton = screen.getByText("Previous Page");

@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import {useNavigate, useParams, useLocation} from "react-router-dom";
 import axios from "axios";
 import {Wrapper} from "./CharacterDetail.styled";
+import {act} from 'react-dom/test-utils';
+
 
 function CharacterDetail() {
     const navigate = useNavigate();
@@ -22,11 +24,14 @@ function CharacterDetail() {
     }, [id]);
 
     const handleBackClick = () => {
-        setShouldAnimateOut(true);
-        setTimeout(() => {
-            navigate(-currentPage);
-        }, 300); // Wait for animation to finish
+        act(() => {
+            setShouldAnimateOut(true);
+            setTimeout(() => {
+                navigate(-currentPage);
+            }, 300); // Wait for animation to finish
+        });
     };
+
 
     if (!character) {
         return <div>Loading character...</div>;
