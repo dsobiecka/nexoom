@@ -8,7 +8,7 @@ import CharacterDetail from './components/CharacterDetail/CharacterDetail';
 describe('App', () => {
     test('renders CharacterList on the home route', () => {
         render(
-            <MemoryRouter>
+            <MemoryRouter initialEntries={['/']}>
                 <CharacterList/>
             </MemoryRouter>
         );
@@ -17,7 +17,7 @@ describe('App', () => {
     test('renders CharacterDetail on the character/:id route', () => {
         const mockId = '1';
         render(
-            <MemoryRouter>
+            <MemoryRouter initialEntries={[`/character/${mockId}`]}>
                 <CharacterDetail/>
             </MemoryRouter>
         );
@@ -38,7 +38,7 @@ describe('CharacterDetail', () => {
     test('renders correctly', () => {
         const mockId = '1';
         render(
-            <MemoryRouter>
+            <MemoryRouter initialEntries={[`/character/${mockId}`]}>
                 <CharacterDetail/>
             </MemoryRouter>
         );
